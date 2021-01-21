@@ -50,7 +50,7 @@ if [ -f /etc/redhat-release ] ; then
         #    yum localinstall http://kickstart.itc.integra.fr/pub/IAOS/PUPPET5/packages/perl-Crypt-DES-2.05-20.el7.x86_64.rpm http://kickstart.itc.integra.fr/pub/IAOS/PUPPET5/packages/perl-File-Which-1.09-12.el7.noarch.rpm http://kickstart/pub/IAOS/PUPPET5/packages/perl-File-Copy-Recursive-0.38-14.el7.noarch.rpm        
     elif [[ $REV == "8"* ]] ; then
             # Installation repo epel et puppet
-            rpm -Uvh rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+            rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
             rpm -ivh $puppet_version_redhat8
             yum install puppet-agent lvm2 sssd -y  --nogpgcheck       
     else
