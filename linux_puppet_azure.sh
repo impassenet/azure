@@ -5,7 +5,7 @@
 # Createur: Clegrand@integra.fr
 # Version: 1.1
 # Puppet Agent version: 5.X
-# OS support: Centos 7.6 (Et superieur) - Centos 8.X - Redhat 7.6 (Et superieur)  - Redhat 8.X - Debian 10.X - Ubuntu 18.X
+# OS support: Centos 7.6 (Et superieur) - Redhat 7.6 (Et superieur)  - Redhat 8.X - Debian 10.X - Ubuntu 18.X
 #-----------------------------------------------------------------------------------------------------------------
 
 # variables
