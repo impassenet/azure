@@ -10,7 +10,7 @@
 
 # variables
 host=$1
-ip=10.242.7.2
+ip=10.211.122.132
 device=sdc
 
 # Sources puppet 5
@@ -56,12 +56,16 @@ vgcreate VolGroup01 "/dev/${device}1"
 lvcreate -n u01 -L 3G VolGroup01
 lvcreate -n orasave -L 50G VolGroup01
 lvcreate -l +100%FREE -n PRODUCTION VolGroup01
-mkfs.xfs /dev/mapper/VolGroup01-PRODUCTION
+mkfs.xfs /dev/mapper/VolGroup01-u01
 mkfs.xfs /dev/mapper/VolGroup01-orasave
 mkfs.xfs /dev/mapper/VolGroup01-PRODUCTION
 echo '/dev/mapper/VolGroup01-PRODUCTION  /production xfs defaults,noatime 0 2' >> /etc/fstab
 echo '/dev/mapper/VolGroup01-u01  /u01 xfs defaults,noatime 0 2' >> /etc/fstab
 echo '/dev/mapper/VolGroup01-orasave  /orasave xfs defaults,noatime 0 2' >> /etc/fstab
+
+# Resize volume  root
+lvextend -L +6G /dev/mapper/dev/mapper/rootvg-rootl
+xfs_growfs /dev/rootvg/rootlv
 
 # creation swap
 lvcreate -n swap -L 4G VolGroup01
