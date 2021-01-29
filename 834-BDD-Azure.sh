@@ -10,7 +10,9 @@
 
 # variables
 host=$1
-ip=10.211.122.132
+#ip=10.211.122.132
+# ip le temps des tests
+ip=10.242.7.2
 device=sdc
 
 # Sources puppet 5
@@ -56,6 +58,7 @@ vgcreate VolGroup01 "/dev/${device}1"
 lvcreate -n swap -L 4G VolGroup01
 mkswap /dev/mapper/VolGroup01-swap
 echo '/dev/mapper/VolGroup01-swap swap                    swap    defaults        0 0' >> /etc/fstab
+swapon -v /dev/mapper/VolGroup01-swap
 
 # creation volumes logiques
 lvcreate -n u01 -L 3G VolGroup01
@@ -71,7 +74,7 @@ echo '/dev/mapper/VolGroup01-orasave  /orasave xfs defaults,noatime 0 2' >> /etc
 mount -a
 
 # Resize volume  root
-lvextend -L +6G /dev/mapper/rootvg-rootl
+lvextend -L +6G /dev/mapper/rootvg-rootlv
 xfs_growfs /dev/rootvg/rootlv
 
 
