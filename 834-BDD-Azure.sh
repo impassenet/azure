@@ -52,6 +52,11 @@ w" | fdisk "/dev/${device}"
 pvcreate -f "/dev/${device}1"
 vgcreate VolGroup01 "/dev/${device}1"
 
+# creation swap
+lvcreate -n swap -L 4G VolGroup01
+mkswap /dev/mapper/VolGroup01-swap
+echo '/dev/mapper/VolGroup01-swap swap                    swap    defaults        0 0' >> /etc/fstab
+
 # creation volumes logiques
 lvcreate -n u01 -L 3G VolGroup01
 lvcreate -n orasave -L 50G VolGroup01
@@ -63,16 +68,12 @@ echo '/dev/mapper/VolGroup01-PRODUCTION  /production xfs defaults,noatime 0 2' >
 echo '/dev/mapper/VolGroup01-u01  /u01 xfs defaults,noatime 0 2' >> /etc/fstab
 echo '/dev/mapper/VolGroup01-orasave  /orasave xfs defaults,noatime 0 2' >> /etc/fstab
 
+mount -a
+
 # Resize volume  root
-lvextend -L +6G /dev/mapper/dev/mapper/rootvg-rootl
+lvextend -L +6G /dev/mapper/rootvg-rootl
 xfs_growfs /dev/rootvg/rootlv
 
-# creation swap
-lvcreate -n swap -L 4G VolGroup01
-mkswap /dev/mapper/VolGroup01-swap
-echo '/dev/mapper/VolGroup01-swap swap                    swap    defaults        0 0' >> /etc/fstab
-
-mount -a
 
 # Desactivation SELINUX
 sed -i 's/enforcing/disabled/g' /etc/selinux/config /etc/selinux/config
