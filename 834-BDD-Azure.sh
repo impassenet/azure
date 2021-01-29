@@ -10,7 +10,7 @@
 
 # variables
 host=$1
-ip=10.211.122.132
+ip=10.242.7.2
 device=sdc
 
 # Sources puppet 5
