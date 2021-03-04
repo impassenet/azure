@@ -5,7 +5,7 @@
 # Createur: Clegrand@integra.fr
 # Version: 1.1
 # Puppet Agent version: 5.X
-# OS support: Centos 7.6 (Et superieur) - Redhat 7.6 (Et superieur)  - Redhat 8.X - Debian 10.X - Ubuntu 18.X
+# OS support: Centos 7.6 (Et superieur) - Centos 8.X - Redhat 7.6 (Et superieur)  - Redhat 8.X - Debian 10.X - Ubuntu 18.X
 #-----------------------------------------------------------------------------------------------------------------
 
 # variables
@@ -52,7 +52,7 @@ if [ -f /etc/redhat-release ] ; then
             # Installation repo epel et puppet
             rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
             rpm -ivh $puppet_version_redhat8
-            yum install puppet-agent lvm2 sssd -y  --nogpgcheck       
+            dnf install puppet-agent lvm2 sssd -y  --nogpgcheck       
     else
             echo '[ERROR] RHEL Version not recognized.'
             exit 1
@@ -74,14 +74,14 @@ elif [ -f /etc/os-release ] ; then
     elif [ $REV = stretch ] ; then
         wget $puppet_version_debian9
         dpkg -i puppet5-release-stretch.deb
-        apt-get update && apt-get install gnupg puppet-agent -y
+        apt-get update && apt-get install gnupg lvm2 xfsprogs sssd chrony puppet-agent -y
     elif [ $REV = buster ] ; then
         wget $puppet_version_debian10
         dpkg -i puppet5-release-buster.deb
         apt-get update &&  apt-get install gnupg lvm2 xfsprogs sssd chrony puppet-agent -y
         apt-get dist-upgrade -y
     else
-        echo '[ERROR] RHEL Version not recognized.'
+        echo '[ERROR] Debian Version not recognized.'
         exit 1
     fi
 else
