@@ -10,6 +10,7 @@
 # Update
 yum update -y
 yum install lvm2 -y
+mkdir /production
 
 # Creation partition LVM production
 echo "n
